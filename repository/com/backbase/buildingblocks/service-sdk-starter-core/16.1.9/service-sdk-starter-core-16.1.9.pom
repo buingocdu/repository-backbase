@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.12</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.backbase.buildingblocks</groupId>
+    <artifactId>service-sdk-starter-core</artifactId>
+    <version>16.1.9</version>
+    <packaging>pom</packaging>
+    <description>Starter with minimal set of dependencies which can be used via Maven dependency import.
+        Net effect is a application that includes this start can be fired up as a web application, discoverable, logs to
+        the backbase standards, supports an authenticated health endpoint (Actuator), calls are traced, can be fired up
+        in a testable/mocked manner.</description>
+    <organization>
+        <name>Backbase B.V.</name>
+        <url>http://www.backbase.com</url>
+    </organization>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <properties>
+        <arch-unit-maven-plugin.version>3.0.0</arch-unit-maven-plugin.version>
+        <archunit.backbase.ArchitectureRules.skip>false</archunit.backbase.ArchitectureRules.skip>
+        <archunit.backbase.ConfigurationRules.skip>false</archunit.backbase.ConfigurationRules.skip>
+        <archunit.backbase.ControllerRules.skip>false</archunit.backbase.ControllerRules.skip>
+        <archunit.backbase.DataMappingRules.skip>false</archunit.backbase.DataMappingRules.skip>
+        <archunit.backbase.GeneralCodingRules.skip>false</archunit.backbase.GeneralCodingRules.skip>
+        <archunit.backbase.LoggingRules.skip>false</archunit.backbase.LoggingRules.skip>
+        <archunit.backbase.NamingConventionRules.skip>false</archunit.backbase.NamingConventionRules.skip>
+        <archunit.backbase.RelationalPersistenceRules.skip>false</archunit.backbase.RelationalPersistenceRules.skip>
+        <!-- Do not fail build if ArchUnit rules violated -->
+        <archunit.noFailOnError>false</archunit.noFailOnError>
+        <!-- Set package to apply ArchUnit maven rules on -->
+        <archunit.projectPackage>${main-package}</archunit.projectPackage>
+        <!-- Skip arch unit maven rules -->
+        <archunit.skip>false</archunit.skip>
+        <!--Make sure the API key is setup for the Jenkins/local user -->
+        <artifactory.apikey>NOT_CONFIGURED</artifactory.apikey>
+        <backbase-rules.version>1.5</backbase-rules.version>
+        <!-- The 'classes' value will use the classes jar -->
+        <backbase.repackage.classifier>classes</backbase.repackage.classifier>
+        <checkstyle.allowMissingThrowsTags>false</checkstyle.allowMissingThrowsTags>
+        <checkstyle.config.location>backbase_checks.xml</checkstyle.config.location>
+        <!-- Checkstyle is disabled initially, to be enabled by default in future releases -->
+        <checkstyle.disable.checks>true</checkstyle.disable.checks>
+        <checkstyle.fail-on-violation>true</checkstyle.fail-on-violation>
+        <checkstyle.fails-on-error>true</checkstyle.fails-on-error>
+        <checkstyle.version>10.3.1</checkstyle.version>
+        <coverage.reports.dir>${project.build.directory}/coverage-reports</coverage.reports.dir>
+        <!-- azure-identity -->
+        <docker.azure.identity>compile</docker.azure.identity>
+        <!-- ${main-class} is automatically determined but can be overridden in child projects. -->
+        <!-- base image gcr.io/distroless/java17-debian12:nonroot -->
+        <docker.distroless.image>gcr.io/distroless/java17-debian12@sha256:b4e4b3e95afa5930a65977b509bd8b5ac516ecd7f97ffc8e5b4c3cd735a4c6d3</docker.distroless.image>
+        <docker.image.name>${docker.repo.url}/${docker.repo.project}/${docker.image.repository}</docker.image.name>
+        <docker.image.repository>${project.artifactId}</docker.image.repository>
+        <docker.jdbc.mssql>compile</docker.jdbc.mssql>
+        <!-- db drivers -->
+        <docker.jdbc.mysql>compile</docker.jdbc.mysql>
+        <docker.jdbc.oracle>compile</docker.jdbc.oracle>
+        <!-- execution control -->
+        <docker.jib.goal>build</docker.jib.goal>
+        <docker.repo.project.release>staging</docker.repo.project.release>
+        <docker.repo.project.snapshot>development</docker.repo.project.snapshot>
+        <!-- image dependencies -->
+        <docker.runtime.tomcat>compile</docker.runtime.tomcat>
+        <docker.scs.azure>compile</docker.scs.azure>
+        <docker.scs.kafka>compile</docker.scs.kafka>
+        <!-- binders -->
+        <docker.scs.rabbit>compile</docker.scs.rabbit>
+        <!-- when enabled removes "SNAPSHOT" from default tag (project version) -->
+        <docker.tag.trim>false</docker.tag.trim>
+        <doxia-module-markdown.version>1.9.1</doxia-module-markdown.version>
+        <!-- Skip enforcing banned dependencies such as mysql drivers, this is used for building containers in the docker-image profile -->
+        <enforce-banned-dependencies.skip>false</enforce-banned-dependencies.skip>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <gmavenplus-plugin.version>3.0.0</gmavenplus-plugin.version>
+        <jacoco.version>0.8.8</jacoco.version>
+        <japicmp.break.build>false</japicmp.break.build>
+        <!--Override in child POM if you want to support jar -->
+        <japicmp.plugin.packaging>jar</japicmp.plugin.packaging>
+        <japicmp.plugin.version>0.17.2</japicmp.plugin.version>
+        <japicmp.skip>true</japicmp.skip>
+        <java.version>17</java.version>
+        <!-- Plugin versions -->
+        <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
+        <!-- jib preset properties -->
+        <jib.container.creationTime>USE_CURRENT_TIMESTAMP</jib.container.creationTime>
+        <jib.container.ports>8080</jib.container.ports>
+        <!-- managed down from '4.17.2' BEFOUND-1134 -->
+        <liquibase.version>4.16.1</liquibase.version>
+        <!-- set by groovy <local-client.arch>amd64</local-client.arch> -->
+        <local-client.os>linux</local-client.os>
+        <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+        <maven-site-plugin.version>4.0.0-M9</maven-site-plugin.version>
+        <!-- The maven-compiler-plugin gives much better error messages with Javac instead of OpenJDK 11 javax.tools -->
+        <maven.compiler.forceJavacCompilerUse>true</maven.compiler.forceJavacCompilerUse>
+        <meta-maven-plugin.version>0.1.2</meta-maven-plugin.version>
+        <!-- Updated because of https://backbase.atlassian.net/browse/MAINT-30445 -->
+        <mysql.version>8.4.0</mysql.version>
+        <previous.release.artifactId>${project.artifactId}</previous.release.artifactId>
+        <!--Breaking change report -->
+        <previous.release.groupId>${project.groupId}</previous.release.groupId>
+        <previous.release.type>${project.packaging}</previous.release.type>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
+        <run.addResources>false</run.addResources>
+        <skip.integration.tests>false</skip.integration.tests>
+        <skip.unit.tests>false</skip.unit.tests>
+        <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml,${project.reporting.outputDirectory}/jacoco-it/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
+        <sonar.sources>${project.basedir}/src/main/</sonar.sources>
+        <sonar.tests>${project.basedir}/src/test/</sonar.tests>
+        <sort.skip>true</sort.skip>
+        <sortpom-maven-plugin.version>3.3.0</sortpom-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.1.12</spring-boot-maven-plugin.version>
+        <ssdk-checkstyle-config.version>1.0.22</ssdk-checkstyle-config.version>
+        <!-- Updated because of https://backbase.atlassian.net/browse/MAINT-30424 -->
+        <tomcat.version>10.1.26</tomcat.version>
+        <velocity.version>1.7</velocity.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.backbase.buildingblocks</groupId>
+                <artifactId>backbase-building-blocks-release</artifactId>
+                <version>16.1.9</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-messaging-servicebus</artifactId>
+                <version>7.15.0</version>
+            </dependency>
+            <!-- Updated because of https://backbase.atlassian.net/browse/MAINT-30445 -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- Updated because of https://backbase.atlassian.net/browse/MAINT-30424 -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>backbase-loader-tool</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>cloud-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>core-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>production-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>service-sdk-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>service-sdk-starter-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>service-sdk-starter-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.buildingblocks</groupId>
+            <artifactId>service-sdk-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-fabric8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-fabric8-loadbalancer</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.societegenerale.commons</groupId>
+                    <artifactId>arch-unit-maven-plugin</artifactId>
+                    <version>${arch-unit-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>${liquibase.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.backbase.buildingblocks</groupId>
+                            <artifactId>liquibase-lint-extension</artifactId>
+                            <version>16.1.9</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.backbase</groupId>
+                            <artifactId>backbase-rules</artifactId>
+                            <version>${backbase-rules.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>enforce</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <level>WARN</level>
+                                        <version>[${java.version},)</version>
+                                    </requireJavaVersion>
+                                    <ArtifactIdNamingRule implementation="com.backbase.maven.enforcer.rule.ArtifactIdNamingRule">
+                                        <level>WARN</level>
+                                    </ArtifactIdNamingRule>
+                                    <GroupIdNamingRule implementation="com.backbase.maven.enforcer.rule.GroupIdNamingRule">
+                                        <level>WARN</level>
+                                    </GroupIdNamingRule>
+                                    <DependenciesRule implementation="com.backbase.maven.enforcer.rule.DependenciesRule">
+                                        <level>WARN</level>
+                                    </DependenciesRule>
+                                </rules>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>enforce-banned-dependencies</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <bannedDependencies>
+                                        <!-- enforcing banned dependencies such as GPL mysql drivers -->
+                                        <excludes>
+                                            <exclude>mysql:mysql-connector-java:*:jar</exclude>
+                                            <exclude>com.mysql:mysql-connector-j:*:jar</exclude>
+                                            <exclude>com.microsoft.sqlserver:mssql-jdbc:*:jar</exclude>
+                                            <exclude>com.oracle.database.jdbc:ojdbc8:*:jar</exclude>
+                                        </excludes>
+                                        <includes>
+                                            <!--only test and system are allowed-->
+                                            <include>mysql:mysql-connector-java:*:jar:test</include>
+                                            <include>com.mysql:mysql-connector-j:*:jar:test</include>
+                                            <include>com.microsoft.sqlserver:mssql-jdbc:*:jar:test</include>
+                                            <include>com.oracle.database.jdbc:ojdbc8:*:jar:test</include>
+                                            <include>mysql:mysql-connector-java:*:jar:system</include>
+                                            <include>com.mysql:mysql-connector-j:*:jar:system</include>
+                                            <include>com.microsoft.sqlserver:mssql-jdbc:*:jar:system</include>
+                                            <include>com.oracle.database.jdbc:ojdbc8:*:jar:system</include>
+                                        </includes>
+                                    </bannedDependencies>
+                                </rules>
+                                <fail>true</fail>
+                                <skip>${enforce-banned-dependencies.skip}</skip>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                    <configuration>
+                        <!-- Use custom layout factory -->
+                        <layoutFactory implementation="com.backbase.boot.layout.BackbaseLayoutFactory"/>
+                    </configuration>
+                    <dependencies>
+                        <!-- Add artifact containing custom factory as plugin dependency -->
+                        <dependency>
+                            <groupId>com.backbase.buildingblocks</groupId>
+                            <artifactId>backbase-loader-tool</artifactId>
+                            <version>16.1.9</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>repackage</id>
+                            <goals>
+                                <goal>build-info</goal>
+                                <goal>repackage</goal>
+                            </goals>
+                            <configuration>
+                                <!-- The 'classes' value will use the classes jar -->
+                                <classifier>${backbase.repackage.classifier}</classifier>
+                                <attach>false</attach>
+                                <executable>true</executable>
+                                <finalName>${project.artifactId}-${project.version}-exec.jar</finalName>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.backbase.buildingblocks</groupId>
+                    <artifactId>service-sdk-build-utils-maven-plugin</artifactId>
+                    <version>16.1.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.backbase.codegen</groupId>
+                    <artifactId>jsonschema-events-maven-plugin</artifactId>
+                    <version>16.1.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib-maven-plugin.version}</version>
+                    <configuration>
+                        <from>
+                            <platforms>
+                                <platform>
+                                    <architecture>amd64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                                <platform>
+                                    <architecture>arm64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                            </platforms>
+                        </from>
+                        <pluginExtensions>
+                            <pluginExtension>
+                                <implementation>com.backbase.buildingblocks.maven.jib.dependencies.JibDependenciesExtension</implementation>
+                                <configuration implementation="com.backbase.buildingblocks.maven.jib.dependencies.DependenciesExtensionConfiguration">
+                                    <dependencies>
+                                        <!-- additional config -->
+                                        <dependency>
+                                            <groupId>com.backbase.buildingblocks</groupId>
+                                            <artifactId>auxiliary-config</artifactId>
+                                        </dependency>
+                                        <!-- add db drivers -->
+                                        <dependency>
+                                            <groupId>com.mysql</groupId>
+                                            <artifactId>mysql-connector-j</artifactId>
+                                            <scope>${docker.jdbc.mysql}</scope>
+                                        </dependency>
+                                        <dependency>
+                                            <groupId>com.microsoft.sqlserver</groupId>
+                                            <artifactId>mssql-jdbc</artifactId>
+                                            <scope>${docker.jdbc.mssql}</scope>
+                                        </dependency>
+                                        <!-- For managed identity for Azure DB-->
+                                        <dependency>
+                                            <groupId>com.azure</groupId>
+                                            <artifactId>azure-identity</artifactId>
+                                            <scope>${docker.azure.identity}</scope>
+                                        </dependency>
+                                        <dependency>
+                                            <groupId>com.oracle.database.jdbc</groupId>
+                                            <artifactId>ojdbc8</artifactId>
+                                            <scope>${docker.jdbc.oracle}</scope>
+                                        </dependency>
+                                        <!-- add cloud stream binders -->
+                                        <dependency>
+                                            <groupId>org.springframework.cloud</groupId>
+                                            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+                                            <scope>${docker.scs.rabbit}</scope>
+                                        </dependency>
+                                        <dependency>
+                                            <groupId>org.springframework.cloud</groupId>
+                                            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+                                            <scope>${docker.scs.kafka}</scope>
+                                        </dependency>
+                                        <dependency>
+                                            <groupId>com.azure.spring</groupId>
+                                            <artifactId>spring-cloud-azure-stream-binder-servicebus</artifactId>
+                                            <scope>${docker.scs.azure}</scope>
+                                        </dependency>
+                                        <!-- add embedded tomcat -->
+                                        <dependency>
+                                            <groupId>org.springframework.boot</groupId>
+                                            <artifactId>spring-boot-starter-tomcat</artifactId>
+                                            <scope>${docker.runtime.tomcat}</scope>
+                                        </dependency>
+                                    </dependencies>
+                                </configuration>
+                            </pluginExtension>
+                            <pluginExtension>
+                                <implementation>com.backbase.buildingblocks.maven.jib.entrypoint.JibEntrypointExtension</implementation>
+                            </pluginExtension>
+                        </pluginExtensions>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.backbase.buildingblocks</groupId>
+                            <artifactId>jib-dependencies-extension</artifactId>
+                            <version>16.1.9</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.backbase.buildingblocks</groupId>
+                            <artifactId>jib-entrypoint-extension</artifactId>
+                            <version>16.1.9</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>${gmavenplus-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.groovy</groupId>
+                            <artifactId>groovy-all</artifactId>
+                            <version>${groovy.version}</version>
+                            <type>pom</type>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>${sortpom-maven-plugin.version}</version>
+                    <configuration>
+                        <lineSeparator>\n</lineSeparator>
+                        <createBackupFile>false</createBackupFile>
+                        <sortDependencies>scope,artifactId</sortDependencies>
+                        <sortProperties>false</sortProperties>
+                        <keepBlankLines>true</keepBlankLines>
+                        <nrOfIndentSpace>4</nrOfIndentSpace>
+                        <verifyFail>Warn</verifyFail>
+                        <expandEmptyElements>false</expandEmptyElements>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <keepCommentsInPom>true</keepCommentsInPom>
+                        <pomElements>
+                            <name>keep</name>
+                            <parent>keep</parent>
+                            <description>keep</description>
+                            <organization>keep</organization>
+                            <developers>keep</developers>
+                            <scm>remove</scm>
+                            <distributionManagement>remove</distributionManagement>
+                            <properties>keep</properties>
+                            <dependencyManagement>keep</dependencyManagement>
+                            <dependencies>keep</dependencies>
+                            <build>keep</build>
+                            <profiles>keep</profiles>
+                        </pomElements>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.societegenerale.commons</groupId>
+                <artifactId>arch-unit-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Avoid build fail if there is issue. True to avoid build failure, default is false -->
+                    <noFailOnError>${archunit.noFailOnError}</noFailOnError>
+                    <!-- Skip plugin execution. True to skip, default is false -->
+                    <skip>${archunit.skip}</skip>
+                    <excludedPaths>
+                        <excludedPath>generated-sources</excludedPath>
+                    </excludedPaths>
+                    <rules>
+                        <preConfiguredRules>
+                            <rule>com.societegenerale.commons.plugin.rules.NoJodaTimeRuleTest</rule>
+                        </preConfiguredRules>
+                        <configurableRules>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.ArchitectureRules</rule>
+                                <skip>${archunit.backbase.ArchitectureRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.BackbaseGeneralCodingRules</rule>
+                                <skip>${archunit.backbase.GeneralCodingRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.ConfigurationRules</rule>
+                                <skip>${archunit.backbase.ConfigurationRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.ControllerRules</rule>
+                                <skip>${archunit.backbase.ControllerRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.DataMappingRules</rule>
+                                <skip>${archunit.backbase.DataMappingRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.LoggingRules</rule>
+                                <skip>${archunit.backbase.LoggingRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.NamingConventionRules</rule>
+                                <skip>${archunit.backbase.NamingConventionRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>com.backbase.buildingblocks.archunit.RelationalPersistenceRules</rule>
+                                <skip>${archunit.backbase.RelationalPersistenceRules.skip}</skip>
+                                <applyOn>
+                                    <packageName>${archunit.projectPackage}</packageName>
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                        </configurableRules>
+                    </rules>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.backbase.buildingblocks</groupId>
+                        <artifactId>service-sdk-archunit</artifactId>
+                        <version>16.1.9</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>arch-test</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-clean-pom-sort</id>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                        <phase>pre-clean</phase>
+                    </execution>
+                    <execution>
+                        <id>flattened-pom-sort</id>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <pomFile>.flattened-pom.xml</pomFile>
+                            <sortProperties>true</sortProperties>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-java</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>javax.validation:validation-api:(,3.0)</exclude>
+                                        <exclude>javax.servlet:javax.servlet-api:(,5.0)</exclude>
+                                        <exclude>javax.el:javax.el-api:(,4.0)</exclude>
+                                        <exclude>javax.ws.rs:javax.ws.rs-api:(,3.0)</exclude>
+                                        <exclude>javax.websocket:javax.websocket-api:(,2.0)</exclude>
+                                        <exclude>javax.json:javax.json-api:(,2.0)</exclude>
+                                        <exclude>javax.json.bind:javax.json.bind-api:(,2.0)</exclude>
+                                        <exclude>javax.annotation:javax.annotation-api:(,2.0)</exclude>
+                                        <exclude>javax.transaction:jta:(,2.0)</exclude>
+                                        <exclude>javax.persistence:javax.persistence-api:(,3.0)</exclude>
+                                    </excludes>
+                                    <searchTransitive>false</searchTransitive>
+                                </bannedDependencies>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--Failsafe plugin - for running integration tests -->
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <!-- Skip the execution from spring-boot-starter-parent as it has no id.
+                                We want to configure the maven-failsafe-plugin with an id and other options -->
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the VM argument line used when integration tests are run. -->
+                            <argLine>${failsafeArgLine}</argLine>
+                            <skipTests>${skip.integration.tests}</skipTests>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.version}</version>
+                <configuration>
+                    <locales>en</locales>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>${doxia-module-markdown.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>lt.velykis.maven.skins</groupId>
+                        <artifactId>reflow-velocity-tools</artifactId>
+                        <version>${reflow-velocity-tools.version}</version>
+                    </dependency>
+                    <!-- Reflow skin requires Velocity >= 1.7 -->
+                    <dependency>
+                        <groupId>org.apache.velocity</groupId>
+                        <artifactId>velocity</artifactId>
+                        <version>${velocity.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>attach-descriptor</id>
+                        <goals>
+                            <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Surefire plugin - for running unit tests -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Sets the VM argument line used when unit tests are run. -->
+                    <argLine>${surefireArgLine}</argLine>
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <!-- Excludes integration tests when unit tests are run. -->
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${coverage.reports.dir}/jacoco.exec</destFile>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run. -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <dataFile>${coverage.reports.dir}/jacoco.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${coverage.reports.dir}/jacoco-it.exec</destFile>
+                            <propertyName>failsafeArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <dataFile>${coverage.reports.dir}/jacoco-it.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <executions>
+                    <!-- Create or update Docker properties
+                        - docker.default.tag: defaults to project.version
+                        - docker.repo.project: set to development/staging
+                    -->
+                    <execution>
+                        <id>docker-properties</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <scripts>
+                                <script>def tag = "${project.version}"
+
+                                        if ("${docker.tag.trim}".equals("true")) {
+                                            tag = tag.minus("-SNAPSHOT")
+                                        }
+
+                                        def reg
+                                        if( project.version.endsWith('-SNAPSHOT') ) {
+                                            reg = project.properties['docker.repo.project.snapshot'] ?: 'development'
+                                        } else {
+                                            reg = project.properties['docker.repo.project.release'] ?: 'staging'
+                                        }
+
+                                        project.properties.setProperty('docker.default.tag', tag)
+                                        project.properties.setProperty('docker.repo.project', reg)
+
+                                        println "docker.default.tag: " + project.properties['docker.default.tag']
+                                        println "docker.repo.project: " + project.properties['docker.repo.project']
+
+                                        if (System.getProperty("os.arch") == "aarch64") {
+                                          project.properties.setProperty('local-client.arch', "arm64")
+                                        } else {
+                                          project.properties.setProperty('local-client.arch', "amd64")
+                                        }</script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>get-latest-version</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <scripts>
+                                <script>def artifactoryApiKey = project.properties.getProperty('artifactory.apikey')
+    
+                                        if(artifactoryApiKey != 'NOT_CONFIGURED') {
+                                            try {
+                                                def connection = new
+                                                URL("https://repo.backbase.com/api/search/latestVersion?g=${project.groupId}&amp;amp;a=${project.artifactId}&amp;amp;repos=repo")
+                                                .openConnection() as HttpURLConnection
+            
+                                                connection.setRequestProperty('X-Jfrog-Art-Api', artifactoryApiKey)
+                                                connection.setRequestProperty('Content-Type','text/plain')
+                                                connection.setRequestProperty('Accept','text/plain')
+                                                connection.setRequestProperty('User-Agent', 'groovy-script')
+            
+                                                def version = connection.inputStream.text
+                                                project.properties.setProperty('previous.release.version', version)
+            
+                                                log.info("Property pulled from artefactory " + version)
+                                                log.info("Property set " + project.properties.getProperty('previous.release.version'))
+                                            } catch (Exception ex) {
+                                                log.error("An error occurred while getting latest version from public repository " + ex.getMessage())
+                                                throw ex;
+                                            }
+                                        }</script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.siom79.japicmp</groupId>
+                <artifactId>japicmp-maven-plugin</artifactId>
+                <version>${japicmp.plugin.version}</version>
+                <configuration>
+                    <skip>${japicmp.skip}</skip>
+                    <oldVersion>
+                        <dependency>
+                            <groupId>${previous.release.groupId}</groupId>
+                            <artifactId>${previous.release.artifactId}</artifactId>
+                            <version>${previous.release.version}</version>
+                            <type>${previous.release.type}</type>
+                        </dependency>
+                    </oldVersion>
+                    <newVersion>
+                        <file>
+                            <path>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</path>
+                        </file>
+                    </newVersion>
+                    <parameter>
+                        <onlyModified>true</onlyModified>
+                        <breakBuildOnBinaryIncompatibleModifications>${japicmp.break.build}</breakBuildOnBinaryIncompatibleModifications>
+                        <breakBuildBasedOnSemanticVersioning>false</breakBuildBasedOnSemanticVersioning>
+                        <onlyBinaryIncompatible>false</onlyBinaryIncompatible>
+                        <ignoreMissingClasses>true</ignoreMissingClasses>
+                        <skipPomModules>true</skipPomModules>
+                        <noAnnotations>false</noAnnotations>
+                        <ignoreNonResolvableArtifacts>true</ignoreNonResolvableArtifacts>
+                        <ignoreMissingOldVersion>true</ignoreMissingOldVersion>
+                        <ignoreMissingNewVersion>true</ignoreMissingNewVersion>
+                        <packagingSupporteds>
+                            <packagingSupported>${japicmp.plugin.packaging}</packagingSupported>
+                        </packagingSupporteds>
+                        <reportOnlyFilename>false</reportOnlyFilename>
+                        <skipXmlReport>true</skipXmlReport>
+                        <skipHtmlReport>false</skipHtmlReport>
+                        <skipDiffReport>true</skipDiffReport>
+                    </parameter>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>cmp</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.backbase.buildingblocks</groupId>
+                <artifactId>service-sdk-build-utils-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- Used when a service uses jar packaging, rename to classes -->
+                        <id>rename-classes-jar</id>
+                        <goals>
+                            <goal>move-file</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <source>${project.artifactId}-${project.version}.jar</source>
+                            <dest>${project.artifactId}-${project.version}-classes.jar</dest>
+                            <attach>true</attach>
+                            <copy>true</copy>
+                            <failIfMissing>false</failIfMissing>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- Used when a service uses jar packaging, silently fails otherwise -->
+                        <id>rename-executable-jar</id>
+                        <goals>
+                            <goal>move-file</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <source>${project.artifactId}-${project.version}-exec.jar-classes.jar</source>
+                            <dest>${project.artifactId}-${project.version}.jar</dest>
+                            <attach>false</attach>
+                            <failIfMissing>false</failIfMissing>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-file</id>
+                        <goals>
+                            <goal>move-file</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <skip>${japicmp.skip}</skip>
+                            <source>${project.build.directory}/japicmp/japicmp.html</source>
+                            <dest>${project.build.directory}/breaking-changes-reports/${project.artifactId}-japicmp.html</dest>
+                            <failIfMissing>false</failIfMissing>
+                            <copy>true</copy>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>find-main-package-for-archunit-maven</id>
+                        <goals>
+                            <goal>find-main-package</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <skip>${archunit.skip}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.backbase.buildingblocks</groupId>
+                        <artifactId>ssdk-checkstyle-config</artifactId>
+                        <version>${ssdk-checkstyle-config.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <skip>${checkstyle.disable.checks}</skip>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>${checkstyle.fails-on-error}</failsOnError>
+                            <failOnViolation>${checkstyle.fail-on-violation}</failOnViolation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.backbase.oss</groupId>
+                <artifactId>meta-maven-plugin</artifactId>
+                <version>${meta-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>create-image-meta</id>
+                        <goals>
+                            <goal>meta</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.image.meta}</skip>
+                            <meta>
+                                <images>
+                                    <image>
+                                        <registry>${docker.repo.project}</registry>
+                                        <image>${docker.image.repository}</image>
+                                        <tag>${docker.default.tag}</tag>
+                                    </image>
+                                </images>
+                            </meta>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <inherited>false</inherited>
+                    </execution>
+                    <!-- clean flattened pom -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <inherited>false</inherited>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <!-- ## jib docker images profiles ## -->
+        <profile>
+            <id>docker-image</id>
+            <build>
+                <plugins>
+                    <!-- Determine the main class -->
+                    <plugin>
+                        <groupId>com.backbase.buildingblocks</groupId>
+                        <artifactId>service-sdk-build-utils-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>find-main-class-for-jib</id>
+                                <goals>
+                                    <goal>find-main-class</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Use git commit time as creation date for the image -->
+                    <plugin>
+                        <groupId>pl.project13.maven</groupId>
+                        <artifactId>git-commit-id-plugin</artifactId>
+                        <configuration>
+                            <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                            <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                            <includeOnlyProperties>
+                                <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
+                            </includeOnlyProperties>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
+                        <executions>
+                            <!-- configure the execution of jib-maven-plugin depending on the artefact type -->
+                            <execution>
+                                <id>set-properties</id>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <scripts>
+                                        <script>println 'jar image setup'
+
+                                                if (project.properties.getProperty('docker.distroless.skip').equals("true")) {
+                                                    project.properties.setProperty('docker.distroless.jar.tag.skip', 'true')
+                                                    project.properties.setProperty('docker.distroless.jar.latest.skip', 'true')
+                                                    println 'skip jib executions'
+                                                }
+
+                                                //Set image creation time
+                                                try {
+                                                    gitTime = "${git.commit.time}"
+                                                    if (gitTime?.trim()) {
+                                                        project.properties.setProperty('jib.container.creationTime', gitTime)
+                                                    }
+                                                    println "jib.container.creationTime: " + project.properties['jib.container.creationTime']
+                                                }catch(Exception ex) {
+                                                   println "WARN: Not a git repo";
+                                                }</script>
+                                    </scripts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- building images -->
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <executions>
+                            <!-- for project packaging: jar -->
+                            <execution>
+                                <id>distroless-image-jar-tag</id>
+                                <goals>
+                                    <goal>${docker.jib.goal}</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <skip>${docker.distroless.jar.tag.skip}</skip>
+                                    <from>
+                                        <image>${docker.distroless.image}</image>
+                                    </from>
+                                    <to>
+                                        <image>${docker.image.name}:${docker.default.tag}</image>
+                                    </to>
+                                    <container>
+                                        <entrypoint>java,-cp,/app/extras/*:/app/resources:/app/classes:/app/libs/*,${main-class}</entrypoint>
+                                        <user>nonroot:nonroot</user>
+                                        <workingDirectory>/home/nonroot</workingDirectory>
+                                        <extraClasspath>/app/extras/*</extraClasspath>
+                                    </container>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>distroless-image-jar-latest</id>
+                                <goals>
+                                    <goal>${docker.jib.goal}</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <skip>${docker.distroless.jar.latest.skip}</skip>
+                                    <from>
+                                        <image>${docker.distroless.image}</image>
+                                    </from>
+                                    <to>
+                                        <image>${docker.image.name}:latest</image>
+                                    </to>
+                                    <container>
+                                        <entrypoint>java,-cp,/app/extras/*:/app/resources:/app/classes:/app/libs/*,${main-class}</entrypoint>
+                                        <user>nonroot:nonroot</user>
+                                        <workingDirectory>/home/nonroot</workingDirectory>
+                                        <extraClasspath>/app/extras/*</extraClasspath>
+                                    </container>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- additional profiles to be used in combination with the main "docker-image" profile -->
+        <!-- build to local daemon -->
+        <profile>
+            <id>local-client</id>
+            <properties>
+                <docker.jib.goal>dockerBuild</docker.jib.goal>
+            </properties>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <!-- Local docker engine doesn't support multiplatform manifest when pushing to it. -->
+                            <groupId>com.google.cloud.tools</groupId>
+                            <artifactId>jib-maven-plugin</artifactId>
+                            <version>${jib-maven-plugin.version}</version>
+                            <configuration>
+                                <from>
+                                    <platforms>
+                                        <platform>
+                                            <architecture>${local-client.arch}</architecture>
+                                            <os>${local-client.os}</os>
+                                        </platform>
+                                    </platforms>
+                                </from>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <!-- disable pushing "latest" tag -->
+        <profile>
+            <id>no-latest-tag</id>
+            <properties>
+                <docker.distroless.jar.latest.skip>true</docker.distroless.jar.latest.skip>
+            </properties>
+        </profile>
+        <!-- exclude db drivers -->
+        <profile>
+            <id>no-jdbc</id>
+            <properties>
+                <docker.jdbc.mssql>provided</docker.jdbc.mssql>
+                <docker.jdbc.mysql>provided</docker.jdbc.mysql>
+                <docker.jdbc.oracle>provided</docker.jdbc.oracle>
+            </properties>
+        </profile>
+        <!-- exclude cloud stream binders -->
+        <profile>
+            <id>no-scs</id>
+            <properties>
+                <docker.scs.azure>provided</docker.scs.azure>
+                <docker.scs.kafka>provided</docker.scs.kafka>
+                <docker.scs.rabbit>provided</docker.scs.rabbit>
+            </properties>
+        </profile>
+        <!-- exclude azure-identity -->
+        <profile>
+            <id>no-azure-identity</id>
+            <properties>
+                <docker.azure.identity>provided</docker.azure.identity>
+            </properties>
+        </profile>
+        <!-- exclude embedded tomcat -->
+        <profile>
+            <id>no-runtime</id>
+            <properties>
+                <docker.runtime.tomcat>provided</docker.runtime.tomcat>
+            </properties>
+        </profile>
+        <!-- removes "-SNAPSHOT" when generating a default image tag -->
+        <profile>
+            <id>trim-snapshot</id>
+            <properties>
+                <docker.tag.trim>true</docker.tag.trim>
+            </properties>
+        </profile>
+        <!-- disable generating images -->
+        <profile>
+            <id>distroless-skip</id>
+            <activation>
+                <property>
+                    <name>docker.distroless.skip</name>
+                </property>
+            </activation>
+            <properties>
+                <docker.distroless.jar.latest.skip>true</docker.distroless.jar.latest.skip>
+                <docker.distroless.jar.tag.skip>true</docker.distroless.jar.tag.skip>
+            </properties>
+        </profile>
+    </profiles>
+</project>

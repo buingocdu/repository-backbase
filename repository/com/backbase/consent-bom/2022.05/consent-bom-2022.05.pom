@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.backbase</groupId>
+    <artifactId>consent-bom</artifactId>
+    <version>2022.05</version>
+    <packaging>pom</packaging>
+    <name>Consent BOM</name>
+    <description>Bill of materials for Consent capability.</description>
+
+    <properties>
+        <consent-spec.version>1.0.57</consent-spec.version>
+    </properties>
+
+    <organization>
+        <name>Backbase</name>
+        <url>https://www.backbase.com</url>
+    </organization>
+
+    <scm>
+        <developerConnection>scm:git:ssh://git@stash.backbase.com:7999/cons/consent-bom.git</developerConnection>
+        <tag>2022.05</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>Backbase Artifact Builds Repository</id>
+            <name>artifacts.backbase.com-builds</name>
+            <url>https://artifacts.backbase.com/staging</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.backbase.dbs.consent</groupId>
+                <artifactId>consent-spec</artifactId>
+                <version>${consent-spec.version}</version>
+                <type>zip</type>
+                <classifier>api</classifier>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.backbase.dbs.consent</groupId>
+            <artifactId>consent-spec</artifactId>
+            <version>${consent-spec.version}</version>
+            <type>zip</type>
+            <classifier>api</classifier>
+        </dependency>
+    </dependencies>
+
+</project>

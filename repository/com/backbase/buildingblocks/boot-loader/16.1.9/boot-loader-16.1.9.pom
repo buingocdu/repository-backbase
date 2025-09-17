@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.backbase.buildingblocks</groupId>
+        <artifactId>backbase-parent</artifactId>
+        <version>16.1.9</version>
+    </parent>
+
+    <artifactId>boot-loader</artifactId>
+    <packaging>pom</packaging>
+    <description>Spring boot application launcher allowing to add classpath dependencies to packaged application.</description>
+
+    <modules>
+        <module>backbase-loader</module>
+        <module>backbase-loader-tool</module>
+    </modules>
+
+</project>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.backbase.buildingblocks</groupId>
+    <artifactId>ssdk-checkstyle-config</artifactId>
+    <version>1.0.22</version>
+    <description>Contains Service SDK checkstyle configuration file for validation within the Backbase Service SSDK.</description>
+
+    <scm>
+        <developerConnection>scm:git:ssh://git@stash.backbase.com:7999/ssdk/ssdk-checkstyle-config.git</developerConnection>
+        <tag>ssdk-checkstyle-config-1.0.22</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>Backbase Artifact Builds Repository</id>
+            <name>artifacts.backbase.com-builds</name>
+            <url>https://artifacts.backbase.com/staging</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    
+
+    
+
+    <build>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.2</version>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.maven.scm</groupId>
+                    <artifactId>maven-scm-provider-gitexe</artifactId>
+                    <version>1.9.4</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+      </plugins>
+    </build>
+
+</project>
