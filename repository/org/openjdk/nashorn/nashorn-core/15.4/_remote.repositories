@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Mar 20 21:23:35 ICT 2025
+nashorn-core-15.4-sources.jar>central=
+nashorn-core-15.4.jar>central=
+nashorn-core-15.4.pom>central=

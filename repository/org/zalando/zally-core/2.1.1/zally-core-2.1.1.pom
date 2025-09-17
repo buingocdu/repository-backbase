@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- This module was also published with a richer model, Gradle metadata,  -->
+  <!-- which should be used instead. Do not delete the following line which  -->
+  <!-- is to indicate to Gradle or any Gradle module metadata file consumer  -->
+  <!-- that they should prefer consuming it instead. -->
+  <!-- do_not_remove: published-with-gradle-metadata -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.zalando</groupId>
+  <artifactId>zally-core</artifactId>
+  <version>2.1.1</version>
+  <name>OpenAPI linter</name>
+  <description>OpenAPI linter service</description>
+  <url>https://github.com/zalando/zally</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Felix Müller</name>
+      <email>felix.mueller.berlin@googlemail.com</email>
+    </developer>
+    <developer>
+      <name>Mikhail Chernykh</name>
+      <email>netmisch@gmail.com</email>
+    </developer>
+    <developer>
+      <name>Maxim Tschumak</name>
+      <email>maxim.tschumak@gmail.com</email>
+    </developer>
+    <developer>
+      <name>Rui Araujo</name>
+      <email>rui.araujo@zalando.de</email>
+    </developer>
+    <developer>
+      <name>Tronje Krop</name>
+      <email>tronje.krop@zalando.de</email>
+    </developer>
+    <developer>
+      <name>Gregor Zeitlinger</name>
+      <email>gregor.zeitlinger@zalando.de</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/zalando/zally.git</connection>
+    <developerConnection>scm:git:ssh://github.com:zalando/zally.git</developerConnection>
+    <url>https://github.com/zalando/zally/tree/master</url>
+  </scm>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>2.13.2.20220328</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.zalando</groupId>
+      <artifactId>zally-rule-api</artifactId>
+      <version>2.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger.parser.v3</groupId>
+      <artifactId>swagger-parser</artifactId>
+      <version>2.0.32</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.config4k</groupId>
+      <artifactId>config4k</artifactId>
+      <version>0.4.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>1.6.20</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jdk8</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-kotlin</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.30</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.service</groupId>
+      <artifactId>auto-service</artifactId>
+      <version>1.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+</project>

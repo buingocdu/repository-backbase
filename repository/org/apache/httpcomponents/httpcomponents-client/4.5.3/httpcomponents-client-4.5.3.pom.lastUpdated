@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Aug 21 10:16:01 ICT 2025
+https\://repo.maven.apache.org/maven2/.lastUpdated=1755746161400
+2ff60bb33ea4f99bb1407d6c55bf1c731deb547d@default-Backbase\ Artifact\ Repository-https\://repo.backbase.com/repo/.lastUpdated=1755746161344
+https\://repo.backbase.com/repo/.error=Could not transfer artifact org.apache.httpcomponents\:httpcomponents-client\:pom\:4.5.3 from/to Backbase Artifact Repository (https\://repo.backbase.com/repo/)\: status code\: 403, reason phrase\:  (403)

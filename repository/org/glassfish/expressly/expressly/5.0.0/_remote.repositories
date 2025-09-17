@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Mar 20 21:23:16 ICT 2025
+expressly-5.0.0-sources.jar>central=
+expressly-5.0.0.jar>central=
+expressly-5.0.0.pom>central=
