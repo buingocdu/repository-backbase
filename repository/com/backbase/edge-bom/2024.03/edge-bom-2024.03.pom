@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.backbase</groupId>
+    <artifactId>edge-bom</artifactId>
+    <version>2024.03</version>
+
+    <packaging>pom</packaging>
+
+    <name>Edge BOM</name>
+    <description>Bill of materials to make sure a consistent set of versions used for edge.
+    </description>
+
+    <url>https://github.com/backbase-rnd/plat-edge-bom</url>
+
+    <scm>
+        <url>https://github.com/backbase-rnd/plat-edge-bom</url>
+        <connection>scm:git:https://github.com/backbase-rnd/plat-edge-bom.git</connection>
+        <developerConnection>scm:git:git@github.com:backbase-rnd/plat-edge-bom.git
+        </developerConnection>
+      <tag>HEAD</tag>
+  </scm>
+
+    
+
+    
+
+    <organization>
+        <name>Backbase</name>
+        <url>https://www.backbase.com</url>
+    </organization>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://jira.backbase.com</url>
+    </issueManagement>
+
+
+    <distributionManagement>
+        <repository>
+            <id>Backbase Artifact Builds Repository</id>
+            <url>https://artifacts.backbase.com/staging</url>
+        </repository>
+        <snapshotRepository>
+            <id>Backbase Artifact Builds Repository</id>
+            <url>https://artifacts.backbase.com/backbase-development-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <edge_service_version>3.2.0</edge_service_version>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!--==========-->
+            <!-- SERVICE -->
+            <!--==========-->
+            <dependency>
+                <groupId>com.backbase.platform</groupId>
+                <artifactId>edge</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform</groupId>
+                <artifactId>edge</artifactId>
+                <version>${edge_service_version}</version>
+                <classifier>meta</classifier>
+                <type>json</type>
+            </dependency>
+            <!-- ========== -->
+            <!-- EDGE FILTERS -->
+            <!-- ========== -->
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>edge-filters</artifactId>
+                <version>${edge_service_version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>edit-response-cookies</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>remove-request-cookie</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>rewrite-path</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>token-conversion</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>validate-routes</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>scoped-access</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>form-auth-filter</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.backbase.platform.edge.filters</groupId>
+                <artifactId>trace-filter</artifactId>
+                <version>${edge_service_version}</version>
+                <type>jar</type>
+            </dependency>   
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--==========-->
+        <!-- SERVICE -->
+        <!--==========-->
+        <dependency>
+            <groupId>com.backbase.platform</groupId>
+            <artifactId>edge</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform</groupId>
+            <artifactId>edge</artifactId>
+            <classifier>meta</classifier>
+            <type>json</type>
+        </dependency>
+        <!-- ========== -->
+        <!-- EDGE FILTERS -->
+        <!-- ========== -->
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>edge-filters</artifactId>
+            <version>${edge_service_version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>edit-response-cookies</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>remove-request-cookie</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>rewrite-path</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>token-conversion</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>validate-routes</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>form-auth-filter</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>trace-filter</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.backbase.platform.edge.filters</groupId>
+            <artifactId>scoped-access</artifactId>
+            <version>${edge_service_version}</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>false</updatePomFile>
+                            <flattenMode>bom</flattenMode>
+                            <pomElements>
+                                <distributionManagement>remove</distributionManagement>
+                                <pluginManagement>remove</pluginManagement>
+                                <ciManagement>remove</ciManagement>
+                                <issueManagement>remove</issueManagement>
+                                <pluginRepositories>remove</pluginRepositories>
+                                <properties>keep</properties>
+                                <repositories>remove</repositories>
+                                <scm>remove</scm>
+                            </pomElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

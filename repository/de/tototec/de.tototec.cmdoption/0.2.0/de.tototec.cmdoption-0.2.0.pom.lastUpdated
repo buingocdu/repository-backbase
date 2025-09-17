@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Aug 21 10:48:06 ICT 2025
+https\://repo.maven.apache.org/maven2/.lastUpdated=1755748086808
+2ff60bb33ea4f99bb1407d6c55bf1c731deb547d@default-Backbase\ Artifact\ Repository-https\://repo.backbase.com/repo/.lastUpdated=1755748086710
+https\://repo.backbase.com/repo/.error=Could not transfer artifact de.tototec\:de.tototec.cmdoption\:pom\:0.2.0 from/to Backbase Artifact Repository (https\://repo.backbase.com/repo/)\: status code\: 403, reason phrase\:  (403)

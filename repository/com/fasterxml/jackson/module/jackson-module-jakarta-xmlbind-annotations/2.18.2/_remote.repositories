@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Mar 20 21:23:10 ICT 2025
+jackson-module-jakarta-xmlbind-annotations-2.18.2-sources.jar>central=
+jackson-module-jakarta-xmlbind-annotations-2.18.2.jar>central=
+jackson-module-jakarta-xmlbind-annotations-2.18.2.pom>central=
